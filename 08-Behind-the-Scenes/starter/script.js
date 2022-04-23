@@ -1,32 +1,45 @@
 'use strict';
 
-function calcAge(birthYear) {
-  const age = 2037 - birthYear;
+const jonas = {
+  firstName: 'Jonas',
+  year: 1991,
+  calcAge: function () {
+    // console.log(this);
+    console.log(2037 - this.year);
 
-  function printAge() {
-    let output = `${firstName}, you are ${age}, born in ${birthYear}`;
-    console.log(output);
+    // Solution 1
+    // const self = this; // self or that
+    // const isMillenial = function () {
+    //   console.log(self);
+    //   console.log(self.year >= 1981 && self.year <= 1996);
+    // };
 
-    if (birthYear >= 1981 && birthYear <= 1996) {
-      var millenial = true;
-      // Creating NEW variable with same name as outer scope's variable
-      const firstName = 'Steven';
-      // Reassigning outer scope's variable
-      output = 'NEW OUTPUT';
-      const str = `Oh, and you are a millenial, ${firstName}`;
-      console.log(str);
+    // Solution 2
+    const isMillenial = () => {
+      console.log(this);
+      console.log(this.year >= 1981 && this.year <= 1996);
+    };
+    isMillenial();
+  },
 
-      function add(a, b) {
-        return a + b;
-      }
-    }
-    console.log(millenial);
-    console.log(output);
-  }
+  greet: () => {
+    console.log(this);
+    console.log(`Hey ${this.firstName}`);
+  },
+};
+jonas.greet();
+jonas.calcAge();
 
-  printAge();
-  return age;
-}
+// arguments keyword
+const addExpr = function (a, b) {
+  console.log(arguments);
+  return a + b;
+};
+addExpr(2, 5);
+addExpr(2, 5, 8, 12);
 
-const firstName = 'Jonas';
-calcAge(1991);
+var addArrow = (a, b) => {
+  console.log(arguments);
+  return a + b;
+};
+addArrow(2, 5, 8);
