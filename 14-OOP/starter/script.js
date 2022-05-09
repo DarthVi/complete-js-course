@@ -1,6 +1,6 @@
 'use strict';
 
-const Person = function (firstName, birthYear) {
+/*const Person = function (firstName, birthYear) {
   // Instance properties
   this.firstName = firstName;
   this.birthYear = birthYear;
@@ -187,3 +187,75 @@ class StudentCl extends PersonCl {
 const martha = new StudentCl('Martha Jones', 2012, 'Computer Science');
 martha.introduce();
 martha.calcAge();
+
+const StudentProto = Object.create(PersonProto);
+StudentProto.init = function (firstName, birthYear, course) {
+  PersonProto.init.call(this, firstName, birthYear);
+  this.course = course;
+};
+StudentProto.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}!`);
+};
+const jay = Object.create(StudentProto);
+jay.init('Jay', 2010, 'Computer Science');
+jay.introduce();
+jay.calcAge(); */
+
+class Account {
+  // 1) Public fields (instances)
+  locale = navigator.language;
+
+  // 2) Private fields (instances)
+  #movements = [];
+  #pin;
+
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    // protected property (putting _ before the name, just a convention)
+    this.#pin = pin;
+    //this._movements = [];
+    //this.locale = navigator.language;
+
+    console.log(`Thanks for opening an account, ${owner}.`);
+  }
+
+  // 3) public methods
+  deposit(value) {
+    this.#movements.push(value);
+  }
+
+  withdraw(value) {
+    this.deposit(-value);
+  }
+
+  requestLoan(value) {
+    if (this._approveLoan(value)) {
+      this.deposit(value);
+      console.log('Loan approved');
+    }
+  }
+
+  //WARNING: with a simple return statement I can change the values from outside!
+  getMovements() {
+    return this.#movements;
+  }
+
+  // 4) Private methods
+  //   #approveLoan(value) {
+  //     return true;
+  //   }
+  _approveLoan(value) {
+    return true;
+  }
+}
+
+const account1 = new Account('Jonas', 'EUR', 1111);
+console.log(account1);
+account1.deposit(250);
+account1.withdraw(140);
+account1.requestLoan(1000);
+//WARNING: with a simple return statement I can change the values from outside!
+account1.getMovements().push(500);
+console.log(account1.getMovements());
+// console.log(account1.#movements);
