@@ -223,16 +223,19 @@ class Account {
   // 3) public methods
   deposit(value) {
     this.#movements.push(value);
+    return this;
   }
 
   withdraw(value) {
     this.deposit(-value);
+    return this;
   }
 
   requestLoan(value) {
     if (this._approveLoan(value)) {
       this.deposit(value);
       console.log('Loan approved');
+      return this;
     }
   }
 
@@ -259,3 +262,11 @@ account1.requestLoan(1000);
 account1.getMovements().push(500);
 console.log(account1.getMovements());
 // console.log(account1.#movements);
+
+account1
+  .deposit(350)
+  .deposit(500)
+  .withdraw(35)
+  .requestLoan(25000)
+  .withdraw(4000);
+console.log(account1.getMovements());
