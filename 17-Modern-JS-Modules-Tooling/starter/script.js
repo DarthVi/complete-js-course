@@ -1,5 +1,5 @@
 import './clean.js';
-import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+import cloneDeep from 'lodash-es';
 // const getLastPost = async function () {
 //   const res = await fetch('https://jsonplaceholder.typicode.com/posts');
 //   const data = await res.json();
@@ -9,3 +9,7 @@ import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
 
 // const lastPost = await getLastPost();
 // console.log(lastPost);
+
+if (module.hot) {
+  module.hot.accept();
+}
